@@ -14,76 +14,55 @@ import AdminsRegistrados from './screen/AdminsRegistrados'
 
 
 export default function App() {
-  
-
   const Stack = createStackNavigator();
 
-  function MyStack(){
-    return(
-
-      
+  function MyStack() {
+    return (
       <Stack.Navigator>
+        <Stack.Screen name="Inicio-Usuarios" component={InicioUsuarios} />
 
-        
+        <Stack.Screen name="Inicio-Sesión" component={InicioSesionAdamin} />
 
-
-
-        <Stack.Screen 
-        name="Inicio-Usuarios" 
-        component={InicioUsuarios}
+        <Stack.Screen
+          name="Menu-Principal-Admins"
+          component={MenuPrincipalAdmins}
         />
 
-      <Stack.Screen 
-        name="Inicio-Sesión" 
-        component={InicioSesionAdamin}
+        <Stack.Screen
+          name="Registro-Admins"
+          component={RegistroAdmin}
+          options={{
+            title: "Agrega un Admin",
+            headerStyle: { backgroundColor: "#dff9fa" },
+            headerTitleStyle: { color: "black", fontSize: 15 },
+          }}
         />
 
-      <Stack.Screen 
-        name="Menu-Principal-Admins" 
-        component={MenuPrincipalAdmins}
+        <Stack.Screen
+          name="Admins-Registrados"
+          component={AdminsRegistrados}
+          options={({ navigation }) => ({
+            title: "Admins Registrados",
+            headerStyle: { backgroundColor: "#dff9fa" },
+            headerTitleStyle: { color: "black", fontSize: 15 },
+            headerRight: () => (
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Registro-Admins")}
+              >
+                <Text style={{ color: "black", marginRight: 20, fontSize: 15 }}>
+                  Agregar
+                </Text>
+              </TouchableOpacity>
+            ),
+          })}
         />
-
-        <Stack.Screen 
-        name="Registro-Admins" 
-        component={RegistroAdmin}
-        options={{
-          title: 'Agrega un Admin',
-          headerStyle: { backgroundColor: '#dff9fa'}, 
-          headerTitleStyle: {color: 'black', fontSize: 15},
-        }}
-
-
-        
-        />
-
-       <Stack.Screen 
-        name="Admins-Registrados" 
-        component={AdminsRegistrados}
-        options={({navigation}) =>({
-          title: 'Admins Registrados', 
-          headerStyle: { backgroundColor: '#dff9fa'}, 
-          headerTitleStyle: {color: 'black', fontSize: 15},
-          headerRight: () => ( 
-            <TouchableOpacity onPress={() => navigation.navigate('Registro-Admins') }>
-              <Text style={{color: 'black', marginRight: 20, fontSize: 15}} >Agregar</Text>
-            </TouchableOpacity>
-          )
-        
-        })}
-        />
-
-        
-
       </Stack.Navigator>
-
-    
-    )
+    );
   }
-
 
   return (
     <NavigationContainer>
-      <MyStack  />
+      <MyStack />
     </NavigationContainer>
   );
 }

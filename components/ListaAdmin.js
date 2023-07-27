@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { FlatList, RefreshControl } from 'react-native'
+import { Alert, FlatList, RefreshControl } from 'react-native'
 import { useIsFocused } from '@react-navigation/native'
 import { getAdmins, deleteAdmin } from '../api';
 import AdminItems from './AdminItems'
@@ -17,8 +17,23 @@ const ListaAdmin = () => {
  
   }
 
-  const handleDelete = async(id) =>{      
-    await deleteAdmin(id)
+  const handleDelete = async(id) =>{  
+    
+    
+    if(!confirmarDelete){
+      Alert.alert(
+        '¿Deseas eliminar este admin?',
+        'Un admin eliminado no se puede recuperar',
+        [
+          { text: 'Cancelar' },
+          { text: 'Si, Eliminar'}
+        ]
+      )
+
+    }
+    const confirmarDelete = await deleteAdmin(id)
+    
+    //await deleteAdmin(id)
     await loadAdmins()
   }
     

@@ -15,10 +15,12 @@ export const getAdmin = async (id) => {
   }
 
   //consultar registros
-  export const adminLogin = async () => {
+   export const adminLogin = async () => {
    const res = await fetch(API)
    return await res.json();
   }
+  
+
 
 //crear un admin
   export const createAdmin = async (newAdmin) => {

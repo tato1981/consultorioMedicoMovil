@@ -11,21 +11,60 @@ const InicioSesionAdmin = ({navigation, }) => {
   const [password, setPassword] = useState("");
 
   const handleSubmit = async () => {
-    const data = await adminLogin();
-    if (data ) {
-      Alert.alert(
-        "Bienvenido",
-        "Bienvenido al sistema de gestión de usuarios",
-        [
-          {
-            text: "Aceptar",
-            onPress: () => navigation.navigate("Menu-Principal-Admins"),
-          },
-        ],
-        { cancelable: false }
-      );
-    }
-  };
+    
+    
+   try {
+      
+      const admins = await adminLogin();
+  
+      // Recorrer cada usuario y extraer los datos
+      admins.forEach((admin) => {
+        const { email, password,  } = admin;
+        console.log(`Su email es: ${email}, Su Password: ${password}`);             
+       
+
+       if(admin && admin.password === password){ 
+
+          // Las credenciales son válidas, puedes realizar las acciones necesarias (por ejemplo, redirigir a otra pantalla).
+         console.log('¡Credenciales válidas! Acceso concedido.');
+          Alert.alert(
+              "Bienvenido",
+              "Bienvenido al sistema de gestión de administradores",
+              [
+                {
+                  text: "Aceptar",
+                  onPress: () => navigation.navigate("Menu-Principal-Admins"),
+                },
+              ],
+              { cancelable: false }
+            );
+          
+      }else{
+          // Las credenciales no son válidas.
+          console.log('¡Credenciales no válidas! Intenta nuevamente.');
+          Alert.alert(
+              "Credenciales no válidas",
+              "Intenta nuevamente",
+              [
+                {
+                  text: "Aceptar",
+                  onPress: () => navigation.navigate("InicioSesionAdmin"),
+                },
+              ],
+              { cancelable: false }
+
+
+            );
+
+      }
+
+
+
+      });
+    } catch (error) {
+      console.error('Error al obtener los usuarios:', error.message);
+    }  
+  }
 
   return (
     <ImageBackground
@@ -33,7 +72,7 @@ const InicioSesionAdmin = ({navigation, }) => {
       style={styles.image}
     >
       <ScrollView style={styles.container}>
-        <Text style={styles.titulo}>Inicio Sesión</Text>
+        <Text style={styles.titulo}>Inicio Sesión Admins</Text>
 
         <View style={styles.inputgroup}>
           <TextInput
@@ -41,6 +80,7 @@ const InicioSesionAdmin = ({navigation, }) => {
             keyboardType="email-address"
             autoCapitalize="none"
             onChangeText={setEmail}
+            value={email}
           />
         </View>
 
@@ -49,6 +89,7 @@ const InicioSesionAdmin = ({navigation, }) => {
             placeholder="Password"
             secureTextEntry
             onChangeText={setPassword}
+            value={password}
           />
         </View>
 

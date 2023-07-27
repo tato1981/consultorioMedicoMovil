@@ -11,8 +11,12 @@ const InicioUsuarios = (props) => {
         source={require('../src/img/imagen2.jpg')}
         style={styles.image}
     >
+      
 
     <View style={styles.container}>
+    <Text style={styles.titulo}>Consultorio {''}
+        <Text style={styles.tituloBold}>Medico</Text>
+      </Text>
         
 
         <TouchableOpacity 
@@ -50,7 +54,9 @@ const styles = StyleSheet.create({
       backgroundColor: '#e8f6f395',
       alignItems: 'center',
       justifyContent: 'center',
-      height: 400
+      height: 400,
+      
+    
     },
     image: {
         flex: 1,
@@ -74,7 +80,17 @@ const styles = StyleSheet.create({
     },
     textBoton: {        
         fontWeight: 'bold'
-    }
+    },
+    titulo: {
+      textAlign: 'center',
+      fontSize: 20,
+      color: '#374151',
+      fontWeight: '600'
+  },
+  tituloBold: {
+    fontWeight: '900',
+    color: '#6D28D9',
+  },
   });
 
 export default InicioUsuarios
